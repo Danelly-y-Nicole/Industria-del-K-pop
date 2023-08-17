@@ -1,24 +1,54 @@
-import pandas as pd
-from datetime import datetime
-from etl_module import extract_data, preprocess_data
-from ml_module import train_classification_model, evaluate_classification_model, train_regression_model, evaluate_regression_model
+# Load data
+file_path = 'kpopidolsv3.csv'
+data = extract_data(file_path)
 
-def main():
-    file_path = 'kpopidols.csv'
-    
-    # ETL Process
-    data = extract_data(file_path)
-    preprocessed_data = preprocess_data(data)
-    
-    # ML Classification Process
-    classification_model = train_classification_model(preprocessed_data)
-    classification_accuracy = evaluate_classification_model(classification_model, preprocessed_data)
-    print("Classification Accuracy:", classification_accuracy)
-    
-    # ML Regression Process
-    regression_model = train_regression_model(preprocessed_data)
-    regression_mse = evaluate_regression_model(regression_model, preprocessed_data)
-    print("Regression Mean Squared Error:", regression_mse)
+# Data preprocessing
+missing_data = check_missing_ratio(data)
+duplicate_rows_data = handle_duplicates(data)
+data_preprocessed = preprocess_dates(data)
 
-if __name__ == "__main__":
-    main()
+# Map Gender values to numeric values
+data_preprocessed = map_gender_to_numeric(data_preprocessed)
+
+# Save preprocessed data
+output_file = 'kpopidols_preprocessed.csv'
+save_preprocessed_data(data_preprocessed, output_file)
+
+# Carga los datos
+data = pd.read_csv('kpopidols_preprocessed.csv')
+
+# Clasificación de Género de los Idols
+# Prepara los datos
+prepared_data = prepare_data(data)
+
+# Manejo de valores nulos (imputación)
+imputed_data = impute_missing_values(prepared_data)
+
+# Divide los datos en características (X) y etiquetas (y)
+X = imputed_data[:, :-1]
+y = imputed_data[:, -1]
+
+# Divide los datos en conjunto de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Entrena el modelo de regresión logística
+classification_model = train_logistic_regression(X_train, y_train)
+
+# Evalúa el modelo
+accuracy = evaluate_model(classification_model, X_test, y_test)
+print("Accuracy:", accuracy)
+
+# Predicción de la Estatura de los Idols
+data = preprocess_data(data)
+
+# División de características (X) y etiquetas (y)
+X = data.drop('Height', axis=1)
+y = data['Height']
+
+# División de datos en conjunto de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = train_model(X_train, y_train)
+
+mse = evaluate_model(model, X_test, y_test)
+print("Mean Squared Error:", mse)
