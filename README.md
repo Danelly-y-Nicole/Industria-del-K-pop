@@ -14,35 +14,34 @@ El problema central que aborda este proyecto es la creación de modelos de apren
 
 2. **Estatura:** La predicción de la estatura de los ídolos utilizando diversos atributos, como edad, lugar de nacimiento, compañía discográfica y más. Esto podría proporcionar información valiosa para la gestión de grupos y la planificación de presentaciones en vivo.
 
+## Archivos
+
+- `etl_module.py`: Este módulo contiene las funciones y procesos relacionados con la extracción, transformación y carga de datos.
+- `ml_module.py`: Este módulo contiene funciones y procesos relacionados con la construcción y evaluación de modelos de Aprendizaje Automático.
+- `main.py`: Este es el archivo principal desde el cual se ejecutan las tuberías ETL y ML del proyecto.
+- `Notebook_de_exploración_K_pop.ipynb`: Este cuaderno de Jupyter contiene la exploración inicial de los datos y el análisis de la industria del K-pop.
+
 ## Pasos Clave
 
-### 1. Carga y Preprocesamiento de Datos
+### 1. Extracción, Transformación y Carga (ETL)
 
-En el archivo `data_preprocessing.ipynb`, se lleva a cabo una serie de pasos para preparar los datos para su análisis y modelado. Los pasos incluyen:
+En `etl_module.py`, se realizan los siguientes pasos:
 
-- **Extracción de Datos:** Se carga el conjunto de datos original desde un archivo CSV utilizando la librería `pandas`.
+- Extracción de datos desde fuentes externas.
+- Limpieza y transformación de datos para su análisis y modelado.
+- Generación de características adicionales para un análisis más profundo.
 
-- **Exploración y Limpieza de Datos:** Se realiza un análisis exploratorio inicial para comprender la estructura y características de los datos. Se identifican y manejan valores faltantes, y se eliminan filas duplicadas.
+### 2. Modelado de Aprendizaje Automático (ML)
 
-- **Manipulación de Fechas:** Se convierten las fechas de nacimiento y debut en formatos adecuados y se calculan edades y edades en el debut.
+En `ml_module.py`, se llevan a cabo los siguientes pasos:
 
-- **Codificación de Variables Categóricas:** Se codifican las variables categóricas relevantes para poder utilizarlas en los modelos.
+- Preparación de datos para el entrenamiento y evaluación de modelos.
+- Construcción y entrenamiento de modelos de Aprendizaje Automático.
+- Evaluación del rendimiento de los modelos utilizando métricas apropiadas.
 
-- **Creación de Columnas Adicionales:** Se crean nuevas columnas derivadas, como el año, mes y día de nacimiento, para un análisis más detallado.
+### 3. Ejecución del Proyecto
 
-### 2. Clasificación de Género de los Ídolos
-
-En el archivo `gender_classification.ipynb`, se aborda la tarea de clasificar el género de los ídolos utilizando un modelo de Regresión Logística. Los pasos clave incluyen:
-
-- **Selección de Características:** Se eligen las características más relevantes, como altura, peso, edad y edad en el debut.
-
-- **Imputación de Valores Faltantes:** Se utilizan técnicas de imputación para manejar los valores faltantes en el conjunto de datos.
-
-- **División de Datos:** Se dividen los datos en conjuntos de entrenamiento y prueba.
-
-- **Entrenamiento del Modelo:** Se entrena un modelo de Regresión Logística utilizando la librería `scikit-learn`.
-
-- **Evaluación del Modelo:** Se evalúa el rendimiento del modelo en función de su precisión en la clasificación del género.
+El archivo `main.py` ejecuta las tuberías ETL y ML en secuencia, permitiendo la ejecución del proyecto completo.
 
 ### 3. Predicción de Estatura de los Ídolos
 
@@ -58,14 +57,6 @@ En el archivo `height_prediction.ipynb`, se aborda la tarea de predecir la estat
 
 - **Evaluación del Modelo:** Se evalúa el rendimiento del modelo utilizando el Mean Squared Error (MSE) como métrica.
 
-### 4. Visualización de Resultados
-
-En los archivos `data_visualization.ipynb` y `height_visualization.ipynb`, se crean visualizaciones para representar los resultados y características de los ídolos del K-pop. Esto incluye:
-
-- **Visualización de Distribuciones:** Se utilizan librerías como `matplotlib` y `seaborn` para crear gráficos que muestran las distribuciones de características como la altura y el género.
-
-- **Visualización de Métricas de Evaluación:** Se crean gráficos que representan las métricas de evaluación de los modelos, como la precisión y el MSE.
-
 
 ## Enfoque de la Solución
 
@@ -77,7 +68,6 @@ El proyecto sigue un enfoque estructurado para abordar estos desafíos:
 
 3. **Predicción de Estatura:** Se implementa un modelo de RandomForestRegressor para predecir la estatura de los ídolos, utilizando tanto atributos numéricos como categóricos. El rendimiento del modelo se evalúa mediante el cálculo del Mean Squared Error (MSE).
 
-4. **Visualización de Resultados:** Se crean visualizaciones gráficas para presentar las distribuciones de características, métricas de evaluación y otros aspectos relevantes de los resultados obtenidos.
 
 ## Requisitos y Uso del Repositorio
 
@@ -87,7 +77,7 @@ Para ejecutar este proyecto, se requiere Python 3.x y las siguientes librerías 
 
 - `data`: Contiene el conjunto de datos original y el archivo preprocesado.
 - `src`: Contiene los módulos de funciones utilizados en el proceso de preprocesamiento y modelado de datos.
-- `notebooks`: Contiene el cuaderno utilizados¿ en el análisis exploratorio, la implementación de modelos y la visualización de resultados.
+- `notebook`: Contiene el cuaderno utilizados¿ en el análisis exploratorio, la implementación de modelos y la visualización de resultados.
 - `README.md`: El archivo que estás leyendo, que proporciona una descripción general del proyecto y su estructura.
 
 ## Resultados Esperados
